@@ -1,6 +1,10 @@
 const fs = require ('fs'); 
 const inquirer = require ('inquirer');
 const axios = require('axios');
+let pdf = require('html-pdf');
+
+const generateHTML = require("./generateHTML");
+
 
 const questions = [
     { 
@@ -11,44 +15,91 @@ const questions = [
     {
         type: 'list',
         message: 'What is your favorite color?',
-        name: 'fav-color',
+        name: 'favColor',
         choices: ['green', 'blue', 'pink', 'red']
     }
 ];
 
+let favColor;
+
 // function writeToFile(fileName, data) {
- 
+//     fs.writeFile("user.pdf", )
 // }
 
-// function init() {}
+    function init() {
+    inquirer.prompt(questions)
+    .then(function( userResponses ) {
+        // console.log(userResponses)
+        const username = userResponses.username;
+        favColor =  userResponses.favColor;
+        const queryUrl = `https://api.github.com/users/${username}`
+    
+        return axios.get (queryUrl)
+            // console.log(user);
+            // return user;
+    })
+    .then(function(response) {
+        const data = response.data;
+        // console.log(data);
+        const user = {
+            "favColor": favColor,
+            "profileImg": data.avatar_url,
+            "userName": data.login,
+            "company": data.company,
+            "location": data.location,
+            "github": data.html_url,
+            "blog": data.blog,
+            "bio": data.bio,
+            "repos": data.public_repos,
+            "followers": data.followers,
+            "following": data.following
+        };
+        // console.log(user);
+        // console.log(test(user));
+        // test(user);
+        return generateHTML(user);
+    }) 
+    .then(function(htmlData) {
+        fs.writeFile("index.html", htmlData, function(err, result) {
+            if (err) {
+                throw err; 
+            } else 
+            {
+                let html = fs.readFileSync("./index.html", "utf8");
+                let options = {fortmat: "letter"};
 
-// init();
+                pdf.create(html, options).toFile("./user.pdf", function(err, results) {
+                    if (err) {
+                        throw err;
+                    } 
+                    console.log("PDF file was created")
+                })
 
-
-inquirer.prompt(questions)
-    .then(function( {username} ) {
-         const queryUrl = `https://api.github.com/users/${username}`
-       
-         return axios.get (queryUrl).then(function(response) {
-            const data = response.data;
-            const user = {
-                "profile-img": data.avatar_url,
-                "user-name": data.login,
-                "location": data.location,
-                "github": data.html_url,
-                "blog": data.blog,
-                "bio": data.bio,
-                "repos": data.public_repos,
-                "followers": data.followers,
-                "following": data.following
-            };
-             console.log(user);
-        });
-       
+                //  fs.readFileSync("./index.html", function(err, htmlFile) {
+                //      if (err) {
+                //          throw err;
+                //      } 
+                //     pdf.create(htmlFile, {format: "Letter"}).toFile("user.pdf", function(err, result) {
+                //         if (err) {
+                //             throw err;
+                //         } 
+                //         console.log("Your PDF file was created.")
+                //     })
+                //  })
+               
+            }
+        })
     })
     .catch(function(err) {
         console.log(err);
     });
+}
+
+init();
+
+
+
+
     // .then(function( {username} ) {
     //     const querySearch = `followers`
     //     const queryUrl = `https://api.github.com/users/${username}/${querySearch}`;
@@ -84,7 +135,6 @@ inquirer.prompt(questions)
     //     })
     // })
   
-    
     
 
 
