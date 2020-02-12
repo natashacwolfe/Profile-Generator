@@ -183,7 +183,7 @@ function generateHTML(user) {
         <h2>My name is ${user.userName}</h2> 
         <div class="nav-link">
           <div class="links-nav">
-            <a href="https://www.google.com/maps/place/${user.location}><li class="nav-link"><i class="fas fa-location-arrow"></i></li></a>
+            <a href="https://www.google.com/maps/place/${user.location}"><li class="nav-link"><i class="fas fa-location-arrow"></i></li></a>
             <a href=${user.github}><li class="nav-link"><i class="fab fa-github"></i> GitHub</li></a>
             <a href=${user.blog}><li class="nav-link"><i class="fas fa-rss"></i> Blog</li></a>
           </div>

@@ -22,13 +22,29 @@ const questions = [
 
 let favColor;
 
-// function writeToFile(fileName, data) {
-//     fs.writeFile("user.pdf", )
-// }
+function writeToFile(fileName, data) {
+    // fs.writeFile("index.html", htmlData, function(err, resolve) {
+    //     if (err) {
+    //         throw err; 
+    //     } 
+    //     else 
+    //     {
+            let html = fs.readFileSync("./index.html", "utf8");
+            let options = {fortmat: "letter"};
+
+            pdf.create(html, options).toFile("./user.pdf", function(err, result) {
+                if (err) {
+                    throw err;
+                } 
+                console.log("PDF file was created")
+            })
+        }
+//     }
+// };
 
     function init() {
     inquirer.prompt(questions)
-    .then(function( userResponses ) {
+    .then(function(userResponses) {
         // console.log(userResponses)
         const username = userResponses.username;
         favColor =  userResponses.favColor;
@@ -36,64 +52,42 @@ let favColor;
     
         return axios.get (queryUrl)
             // console.log(user);
-            // return user;
     })
-    .then(function(response) {
-        const data = response.data;
-        // console.log(data);
-        const user = {
-            "favColor": favColor,
-            "profileImg": data.avatar_url,
-            "userName": data.login,
-            "company": data.company,
-            "location": data.location,
-            "github": data.html_url,
-            "blog": data.blog,
-            "bio": data.bio,
-            "repos": data.public_repos,
-            "followers": data.followers,
-            "following": data.following
-        };
-        // console.log(user);
-        // console.log(test(user));
-        // test(user);
-        return generateHTML(user);
-    }) 
-    .then(function(htmlData) {
-        fs.writeFile("index.html", htmlData, function(err, result) {
-            if (err) {
-                throw err; 
-            } else 
-            {
-                let html = fs.readFileSync("./index.html", "utf8");
-                let options = {fortmat: "letter"};
-
-                pdf.create(html, options).toFile("./user.pdf", function(err, results) {
-                    if (err) {
-                        throw err;
-                    } 
-                    console.log("PDF file was created")
-                })
-
-                //  fs.readFileSync("./index.html", function(err, htmlFile) {
-                //      if (err) {
-                //          throw err;
-                //      } 
-                //     pdf.create(htmlFile, {format: "Letter"}).toFile("user.pdf", function(err, result) {
-                //         if (err) {
-                //             throw err;
-                //         } 
-                //         console.log("Your PDF file was created.")
-                //     })
-                //  })
-               
-            }
+        .then(function(response) {
+            const data = response.data;
+            // console.log(data);
+            const user = {
+                "favColor": favColor,
+                "profileImg": data.avatar_url,
+                "userName": data.login,
+                "company": data.company,
+                "location": data.location,
+                "github": data.html_url,
+                "blog": data.blog,
+                "bio": data.bio,
+                "repos": data.public_repos,
+                "followers": data.followers,
+                "following": data.following
+            };
+            // console.log(user);
+            // console.log(test(user));
+            // test(user);
+            return generateHTML(user);
+        }) 
+        .then(function(htmlData) {
+            fs.writeFile("index.html", htmlData, function(err, result) {
+                if (err) {
+                    throw err;
+                } 
+                return writeToFile("index.html", htmlData);
+            })
+                
         })
-    })
-    .catch(function(err) {
-        console.log(err);
-    });
-}
+        .catch(function(err) {
+            console.log(err);
+        });
+    
+    }
 
 init();
 
