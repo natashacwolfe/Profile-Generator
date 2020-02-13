@@ -39,7 +39,7 @@ PDF View
 
 ## API
 
-For this application the user is prompted to enter their GitHub username. That is sent in the API call to gather the user profile data. In order to display the user's star count you need a second API call using a slightly differnt url. 
+For this application the user is prompted to enter their GitHub username. That is sent in the axios call to gather the user profile data. In order to display the user's star count you need a second axios call adding on "/starred" to the original url. 
 
 [GitHub](https://developer.github.com/v3/) Api Documentation  
 
