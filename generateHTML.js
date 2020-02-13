@@ -183,7 +183,7 @@ function generateHTML(user) {
         <h2>My name is ${user.userName}</h2> 
         <div class="nav-link">
           <div class="links-nav">
-            <a href="https://www.google.com/maps/place/${user.location}"><li class="nav-link"><i class="fas fa-location-arrow"></i></li></a>
+            <a href="https://www.google.com/maps/place/${user.location}"><li class="nav-link"><i class="fas fa-location-arrow"></i> ${user.location}</li></a>
             <a href=${user.github}><li class="nav-link"><i class="fab fa-github"></i> GitHub</li></a>
             <a href=${user.blog}><li class="nav-link"><i class="fas fa-rss"></i> Blog</li></a>
           </div>
@@ -214,7 +214,7 @@ function generateHTML(user) {
             <div class="col">
               <div class="card">
                 <h3>GitHub Stars:</h3>
-                <h5>65</h5>
+                <h5>${user.stars}</h5>
               </div>
             </div>
             <div class="col">
