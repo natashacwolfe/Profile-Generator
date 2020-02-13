@@ -36,7 +36,7 @@ function generateHTML(user) {
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
       <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
-      <title>Document</title>
+      <title>User Profile</title>
       <style>
       @page {
         margin: 0;
@@ -66,10 +66,12 @@ function generateHTML(user) {
       background-color: #E9EDEE;
       height: auto;
       padding-top: 30px;
+      text-align: center;
       }
       h1, h2, h3, h4, h5, h6 {
       font-family: 'BioRhyme', serif;
       margin: 0;
+      text-align: center;
       }
       h1 {
       font-size: 3em;
@@ -96,6 +98,7 @@ function generateHTML(user) {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
+      text-align: center;
       background-color: ${colors[user.favColor].headerBackground};
       color: ${colors[user.favColor].headerColor};
       padding: 10px;
@@ -178,16 +181,16 @@ function generateHTML(user) {
   <body>
     <div class="wrapper">
       <div class="photo-header">
+
         <img src="${user.profileImg}">
         <h1>Hi!</h1>
         <h2>My name is ${user.userName}</h2> 
-        <div class="nav-link">
+        <h4>Currently @ ${user.company}</h4>
           <div class="links-nav">
-            <a href="https://www.google.com/maps/place/${user.location}"><li class="nav-link"><i class="fas fa-location-arrow"></i> ${user.location}</li></a>
-            <a href=${user.github}><li class="nav-link"><i class="fab fa-github"></i> GitHub</li></a>
-            <a href=${user.blog}><li class="nav-link"><i class="fas fa-rss"></i> Blog</li></a>
+            <a class="nav-link" href="https://www.google.com/maps/place/${user.location}"><i class="fas fa-location-arrow"></i> ${user.location}</a>
+            <a class="nav-link" href=${user.github}><i class="fab fa-github"></i> GitHub</a>
+            <a class="nav-link" href=${user.blog}><i class="fas fa-rss"></i> Blog</a>
           </div>
-        </div>
       </div>
       <div class="main">
         <div class="container">
