@@ -53,6 +53,8 @@ function init() {
             let company = data.company;
                 if (data.company === null) { company = "Undiscolsed" };
                  
+                console.log(`Gathering data for user: ${data.login}...`)
+
                     const user = {
                         "favColor": favColor,
                         "profileImg": data.avatar_url,
@@ -70,6 +72,7 @@ function init() {
                     return generateHTML(user)
         }))
             .then((function(htmlData) {
+                console.log("Converting HTML Document to PDF...")
                 fs.writeFile("index.html", htmlData, function(err, result) {
                     if (err) throw err;
                     return writeToFile("index.html", htmlData);
