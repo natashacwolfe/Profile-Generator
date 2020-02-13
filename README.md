@@ -21,7 +21,7 @@ node index.js
 ```
 ![Demo](/assets/images/demo.gif)
 
-PDF 
+PDF View
 
 ![PDF](/assets/images/pdfImage.png)
 
@@ -41,8 +41,7 @@ PDF
 
 For this application the user is prompted to enter their GitHub username. That is sent in the API call to gather the user profile data. In order to display the user's star count you need a second API call using a slightly differnt url. 
 
-GitHub Api Documentation  
-[GitHub](https://developer.github.com/v3/)
+[GitHub](https://developer.github.com/v3/) Api Documentation  
 
 
 ## What I accomplished
